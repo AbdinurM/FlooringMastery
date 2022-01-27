@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+                http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="io" class="UI.UserIOConsoleImpl" />
+
+    <bean id="orderDao" class="FlooringMasteryDao.OrderFileImpl" />
+    <bean id="productDao" class="FlooringMasteryDao.ProductFileImpl" />
+    <bean id="taxDao" class="FlooringMasteryDao.TaxFileImpl" />
+
+
+    <bean id="view" class="UI.FlooringMasteryView">
+        <constructor-arg ref="io" />
+    </bean>
+
+    <bean id="service" class="Service.ServiceLayerImpl">
+        <constructor-arg ref="orderDao" />
+        <constructor-arg ref="productDao" />
+        <constructor-arg ref="taxDao" />
+    </bean>
+
+    <bean id="controller" class="Controller.Controller">
+        <constructor-arg ref="service" />
+        <constructor-arg ref="view" />
+    </bean>
+</beans>
